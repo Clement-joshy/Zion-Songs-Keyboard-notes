@@ -1,23 +1,75 @@
 
 import { useState } from 'react';
 import SongsLibrary from './SongsLibrary';
+import KeyboardNotes from './KeyboardNotes';
 import './App.css';
 
 function App() {
-  const [page, setPage] = useState('home');
+  const [page, setPage] = useState(() => {
+    if (window.location.pathname === '/keyboard-notes') {
+      return 'keyboard-notes';
+    }
 
-  // Show the Songs Library when selected
+    if (window.location.pathname === '/songs') {
+      return 'songs';
+    }
+
+    return 'home';
+  });
+
+  function navigateTo(nextPage) {
+    const paths = {
+      home: '/',
+      songs: '/songs',
+      'keyboard-notes': '/keyboard-notes',
+    };
+
+    window.history.pushState({}, '', paths[nextPage]);
+    setPage(nextPage);
+    window.scrollTo(0, 0);
+  }
+
+  // Support browser Back and Forward buttons
+  window.onpopstate = () => {
+    const path = window.location.pathname;
+
+    if (path === '/keyboard-notes') {
+      setPage('keyboard-notes');
+    } else if (path === '/songs') {
+      setPage('songs');
+    } else {
+      setPage('home');
+    }
+  };
+
+  // Separate Songs page
   if (page === 'songs') {
-    return <SongsLibrary onBack={() => setPage('home')} />;
+    return (
+      <SongsLibrary
+        onBack={() => navigateTo('home')}
+      />
+    );
+  }
+
+  // Separate Keyboard Notes page
+  if (page === 'keyboard-notes') {
+    return (
+      <KeyboardNotes
+        onBack={() => navigateTo('home')}
+      />
+    );
   }
 
   return (
     <div className="app" id="home">
       <header className="navbar">
         <a
-          href="#home"
+          href="/"
           className="brand"
-          onClick={() => setPage('home')}
+          onClick={(event) => {
+            event.preventDefault();
+            navigateTo('home');
+          }}
         >
           <span className="brand-icon">♫</span>
           <span className="brand-text">
@@ -29,8 +81,11 @@ function App() {
         <nav className="nav-links">
           <a
             className="active"
-            href="#home"
-            onClick={() => setPage('home')}
+            href="/"
+            onClick={(event) => {
+              event.preventDefault();
+              navigateTo('home');
+            }}
           >
             ♫ HOME
           </a>
@@ -38,20 +93,20 @@ function App() {
           <a href="#about">♧ ABOUT US</a>
 
           <a
-            href="#songs"
+            href="/songs"
             onClick={(event) => {
               event.preventDefault();
-              setPage('songs');
+              navigateTo('songs');
             }}
           >
             ♪ SONGS
           </a>
 
           <a
-            href="#songs"
+            href="/keyboard-notes"
             onClick={(event) => {
               event.preventDefault();
-              setPage('songs');
+              navigateTo('keyboard-notes');
             }}
           >
             ▤ LEARN
@@ -62,7 +117,7 @@ function App() {
           className="header-search"
           onSubmit={(event) => {
             event.preventDefault();
-            setPage('songs');
+            navigateTo('songs');
           }}
         >
           <input
@@ -100,11 +155,11 @@ function App() {
 
             <div className="home-cards">
               <a
-                href="#songs"
+                href="/songs"
                 className="home-card songs-card"
                 onClick={(event) => {
                   event.preventDefault();
-                  setPage('songs');
+                  navigateTo('songs');
                 }}
               >
                 <span>SONGS</span>
@@ -112,11 +167,11 @@ function App() {
               </a>
 
               <a
-                href="#songs"
+                href="/keyboard-notes"
                 className="home-card notes-card"
                 onClick={(event) => {
                   event.preventDefault();
-                  setPage('songs');
+                  navigateTo('keyboard-notes');
                 }}
               >
                 <span>
@@ -140,7 +195,14 @@ function App() {
 
       <footer className="footer" id="about">
         <div className="footer-main">
-          <a href="#home" className="brand footer-brand">
+          <a
+            href="/"
+            className="brand footer-brand"
+            onClick={(event) => {
+              event.preventDefault();
+              navigateTo('home');
+            }}
+          >
             <span className="brand-icon">♫</span>
 
             <span className="brand-text">
@@ -155,24 +217,34 @@ function App() {
 
           <div className="footer-column">
             <h3>Quick Links</h3>
-            <a href="#home">Home</a>
+
+            <a
+              href="/"
+              onClick={(event) => {
+                event.preventDefault();
+                navigateTo('home');
+              }}
+            >
+              Home
+            </a>
+
             <a href="#about">About Us</a>
 
             <a
-              href="#songs"
+              href="/songs"
               onClick={(event) => {
                 event.preventDefault();
-                setPage('songs');
+                navigateTo('songs');
               }}
             >
               Songs
             </a>
 
             <a
-              href="#songs"
+              href="/keyboard-notes"
               onClick={(event) => {
                 event.preventDefault();
-                setPage('songs');
+                navigateTo('keyboard-notes');
               }}
             >
               Learn

@@ -1,0 +1,189 @@
+.keyboard-library {
+    min-height: 100vh;
+    padding: 32px 6%;
+    background: #f5f8ff;
+    color: #172554;
+    font-family: Arial, sans-serif;
+}
+
+.keyboard-library button,
+.keyboard-library input,
+.keyboard-library select {
+    font: inherit;
+}
+
+.keyboard-library button {
+    cursor: pointer;
+}
+
+.keyboard-library .back-button {
+    border: 1px solid #dbe4f0;
+    border-radius: 8px;
+    padding: 10px 16px;
+    background: white;
+    color: #1e3a8a;
+}
+
+.keyboard-heading {
+    text-align: center;
+    margin: 48px auto 32px;
+}
+
+.keyboard-subtitle {
+    color: #64748b;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.keyboard-heading h1 {
+    margin: 12px 0;
+    font-size: clamp(30px, 5vw, 46px);
+}
+
+.keyboard-heading>p:last-child {
+    color: #64748b;
+}
+
+.keyboard-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.keyboard-toolbar input {
+    flex: 1;
+    min-width: 220px;
+}
+
+.keyboard-toolbar input,
+.keyboard-toolbar select {
+    padding: 13px 14px;
+    border: 1px solid #dbe4f0;
+    border-radius: 9px;
+    background: white;
+    color: #172554;
+}
+
+.keyboard-view-buttons {
+    display: flex;
+    gap: 6px;
+}
+
+.keyboard-view-buttons button {
+    padding: 10px 15px;
+    border: 1px solid #dbe4f0;
+    border-radius: 8px;
+    background: white;
+}
+
+.keyboard-view-buttons button.active {
+    background: #1e40af;
+    color: white;
+    border-color: #1e40af;
+}
+
+.keyboard-count {
+    max-width: 1000px;
+    margin: 24px auto 16px;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.keyboard-items {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    gap: 16px;
+}
+
+.keyboard-items.grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.keyboard-items.list {
+    grid-template-columns: 1fr;
+}
+
+.keyboard-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 20px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgb(15 23 42 / 4%);
+}
+
+.keyboard-number {
+    display: grid;
+    place-items: center;
+    min-width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background: #e8efff;
+    color: #1d4ed8;
+    font-weight: bold;
+}
+
+.keyboard-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.keyboard-details h2 {
+    margin: 0 0 6px;
+    font-size: 17px;
+}
+
+.keyboard-details p {
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.keyboard-view-notes-button {
+    padding: 10px 13px;
+    border: 0;
+    border-radius: 8px;
+    background: #1e40af;
+    color: white;
+}
+
+.keyboard-empty-state {
+    max-width: 1000px;
+    margin: 24px auto;
+    padding: 36px;
+    text-align: center;
+    background: white;
+    border-radius: 14px;
+}
+
+.keyboard-note {
+    margin-top: 32px;
+    text-align: center;
+    color: #64748b;
+    font-size: 13px;
+}
+
+@media (max-width: 600px) {
+    .keyboard-library {
+        padding: 22px 5%;
+    }
+
+    .keyboard-item {
+        flex-wrap: wrap;
+    }
+
+    .keyboard-view-notes-button {
+        width: 100%;
+    }
+
+    .keyboard-toolbar input,
+    .keyboard-toolbar select {
+        width: 100%;
+    }
+}

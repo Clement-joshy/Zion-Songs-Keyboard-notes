@@ -98,16 +98,16 @@ function SongsLibrary({ onBack }) {
 
                             <div className="song-details">
                                 <h2>{song.title}</h2>
-                                <p>Song of Zion · Keyboard Notes</p>
+                                <p>Song of Zion · Song Lyrics</p>
                             </div>
 
                             <button
                                 className="view-notes-button"
                                 onClick={() =>
-                                    alert('Keyboard notes for this song will be added later.')
+                                    alert('Song Lyrics for this song will be added later.')
                                 }
                             >
-                                View Notes
+                                View Lyrics
                             </button>
                         </article>
                     ))}
