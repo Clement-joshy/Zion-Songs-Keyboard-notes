@@ -1,218 +1,210 @@
 
-import './App.css'
-
-const songs = [
-  {
-    title: 'In Christ Alone',
-    category: 'Hymns',
-    level: 'Easy',
-    image:
-      'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=700&q=80',
-  },
-  {
-    title: 'Great Is Thy Faithfulness',
-    category: 'Hymns',
-    level: 'Medium',
-    image:
-      'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=700&q=80',
-  },
-  {
-    title: 'How Great Thou Art',
-    category: 'Hymns',
-    level: 'Easy',
-    image:
-      'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=700&q=80',
-  },
-  {
-    title: 'Holy, Holy, Holy',
-    category: 'Hymns',
-    level: 'Medium',
-    image:
-      'https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?auto=format&fit=crop&w=700&q=80',
-  },
-]
-
-const features = [
-  {
-    icon: '♫',
-    title: 'Song Library',
-    description: 'Browse all songs',
-  },
-  {
-    icon: '▥',
-    title: 'Keyboard Notes',
-    description: 'Learn step by step',
-  },
-  {
-    icon: '♡',
-    title: 'Favorites',
-    description: 'Your saved songs',
-  },
-  {
-    icon: '♙',
-    title: 'My Account',
-    description: 'Manage your profile',
-  },
-]
+import { useState } from 'react';
+import SongsLibrary from './SongsLibrary';
+import './App.css';
 
 function App() {
+  const [page, setPage] = useState('home');
+
+  // Show the Songs Library when selected
+  if (page === 'songs') {
+    return <SongsLibrary onBack={() => setPage('home')} />;
+  }
+
   return (
-    <div className="app">
+    <div className="app" id="home">
       <header className="navbar">
-        <a href="#home" className="brand">
+        <a
+          href="#home"
+          className="brand"
+          onClick={() => setPage('home')}
+        >
           <span className="brand-icon">♫</span>
-          <span>
-            <strong>Songs of Zion</strong>
+          <span className="brand-text">
+            <strong>SONGS OF ZION</strong>
             <small>Keyboard Notes</small>
           </span>
         </a>
 
         <nav className="nav-links">
-          <a className="active" href="#home">Home</a>
-          <a href="#songs">♫ Songs</a>
-          <a href="#learn">▤ Learn</a>
-          <a href="#account">♙ Login</a>
+          <a
+            className="active"
+            href="#home"
+            onClick={() => setPage('home')}
+          >
+            ♫ HOME
+          </a>
+
+          <a href="#about">♧ ABOUT US</a>
+
+          <a
+            href="#songs"
+            onClick={(event) => {
+              event.preventDefault();
+              setPage('songs');
+            }}
+          >
+            ♪ SONGS
+          </a>
+
+          <a
+            href="#songs"
+            onClick={(event) => {
+              event.preventDefault();
+              setPage('songs');
+            }}
+          >
+            ▤ LEARN
+          </a>
         </nav>
 
-        <a className="signup-button" href="#account">Sign Up</a>
+        <form
+          className="header-search"
+          onSubmit={(event) => {
+            event.preventDefault();
+            setPage('songs');
+          }}
+        >
+          <input
+            type="search"
+            placeholder="Search"
+            aria-label="Search songs"
+          />
+          <button type="submit" aria-label="Search">
+            ⌕
+          </button>
+        </form>
+
+        <a
+          href="#account"
+          className="profile-button"
+          aria-label="Login or sign up"
+          title="Login / Sign Up"
+        >
+          <span>●</span>
+        </a>
       </header>
 
       <main>
-        <section className="hero" id="home">
+        <section className="hero">
           <div className="hero-content">
-            <span className="eyebrow">SING · PLAY · WORSHIP</span>
             <h1>
-              Songs of Zion
-              <span>Keyboard Notes</span>
+              <span>SONGS OF ZION</span>
+              <strong>KEYBOARD NOTES</strong>
             </h1>
-            <p>
-              Your favourite songs, with easy-to-follow keyboard
-              notes. Learn, play and worship with confidence.
+
+            <p className="verse">
+              Sing for joy to God our strength
+              <span>Psalms 81:1</span>
             </p>
 
-            <div className="hero-actions">
-              <a className="primary-button" href="#songs">
-                ♫ &nbsp; Explore Songs
-              </a>
-              <a className="secondary-button" href="#learn">
-                ▤ &nbsp; Learn the Notes
-              </a>
-            </div>
-
-            <div className="hero-stats">
-              <div><strong>Learn</strong><span>At your pace</span></div>
-              <div><strong>Play</strong><span>With confidence</span></div>
-              <div><strong>Worship</strong><span>With joy</span></div>
-            </div>
-          </div>
-
-          <div className="hero-visual">
-            <img
-              src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?auto=format&fit=crop&w=1200&q=85"
-              alt="Piano keyboard ready to play"
-            />
-            <div className="image-message">
-              <span>♪</span>
-              <p>Music brings us<br />closer to God.</p>
-              <small>Play with your heart ♡</small>
-            </div>
-            <div className="floating-note">♫</div>
-          </div>
-        </section>
-
-        <section className="explore-section" id="learn">
-          <div className="explore-search">
-            <span className="eyebrow">YOUR MUSIC JOURNEY</span>
-            <h2>Explore the Library</h2>
-            <p>Find your favourite song and start playing.</p>
-            <a className="search-box" href="#songs">
-              <span>⌕</span>
-              Search songs by title, artist or keyword...
-            </a>
-          </div>
-
-          <div className="feature-grid">
-            {features.map((feature) => (
+            <div className="home-cards">
               <a
-                href={feature.title === 'Keyboard Notes' ? '#songs' : '#account'}
-                className="feature-card"
-                key={feature.title}
+                href="#songs"
+                className="home-card songs-card"
+                onClick={(event) => {
+                  event.preventDefault();
+                  setPage('songs');
+                }}
               >
-                <span className="feature-icon">{feature.icon}</span>
-                <strong>{feature.title}</strong>
-                <small>{feature.description}</small>
-                <span className="feature-arrow">→</span>
+                <span>SONGS</span>
+                <b aria-hidden="true">♫</b>
               </a>
-            ))}
-          </div>
-        </section>
 
-        <section className="songs-section" id="songs">
-          <div className="section-heading">
-            <div>
-              <span className="eyebrow">YOUR NEXT FAVOURITE</span>
-              <h2>Featured Songs</h2>
-              <p>Beautiful songs to learn and play.</p>
+              <a
+                href="#songs"
+                className="home-card notes-card"
+                onClick={(event) => {
+                  event.preventDefault();
+                  setPage('songs');
+                }}
+              >
+                <span>
+                  KEYBOARD
+                  <br />
+                  NOTES
+                </span>
+                <b aria-hidden="true">♫</b>
+              </a>
             </div>
-            <a href="#songs" className="view-all">Explore Library →</a>
           </div>
 
-          <div className="song-grid">
-            {songs.map((song) => (
-              <article className="song-card" key={song.title}>
-                <img src={song.image} alt="" />
-                <div className="song-info">
-                  <span className="song-category">{song.category}</span>
-                  <h3>{song.title}</h3>
-                  <div className="song-bottom">
-                    <span className="level">{song.level}</span>
-                    <a
-                      href="#learn"
-                      className="play-button"
-                      aria-label={`Learn ${song.title}`}
-                    >
-                      ▶
-                    </a>
-                  </div>
-                </div>
-              </article>
-            ))}
+          <div className="hero-image">
+            <img
+              src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?auto=format&fit=crop&w=1600&q=90"
+              alt="Piano keyboard"
+            />
           </div>
-        </section>
-
-        <section className="benefits">
-          <div><span>✦</span><p><strong>Easy to Follow</strong><small>Clear notes for every level.</small></p></div>
-          <div><span>▣</span><p><strong>Mobile Friendly</strong><small>Learn on any device.</small></p></div>
-          <div><span>✓</span><p><strong>Build Your Skills</strong><small>Improve step by step.</small></p></div>
-          <div><span>♡</span><p><strong>Worship with Joy</strong><small>Play songs you love.</small></p></div>
         </section>
       </main>
 
-      <footer className="footer" id="account">
-        <a href="#home" className="brand footer-brand">
-          <span className="brand-icon">♫</span>
-          <span>
-            <strong>Songs of Zion</strong>
-            <small>Keyboard Notes</small>
-          </span>
-        </a>
-        <div className="footer-verse">
-          <p>“Make a joyful noise unto the Lord...”</p>
-          <small>Psalm 100:1</small>
+      <footer className="footer" id="about">
+        <div className="footer-main">
+          <a href="#home" className="brand footer-brand">
+            <span className="brand-icon">♫</span>
+
+            <span className="brand-text">
+              <strong>SONGS OF ZION</strong>
+              <small>Keyboard Notes</small>
+
+              <span className="footer-tagline">
+                Worship · Learn · Play
+              </span>
+            </span>
+          </a>
+
+          <div className="footer-column">
+            <h3>Quick Links</h3>
+            <a href="#home">Home</a>
+            <a href="#about">About Us</a>
+
+            <a
+              href="#songs"
+              onClick={(event) => {
+                event.preventDefault();
+                setPage('songs');
+              }}
+            >
+              Songs
+            </a>
+
+            <a
+              href="#songs"
+              onClick={(event) => {
+                event.preventDefault();
+                setPage('songs');
+              }}
+            >
+              Learn
+            </a>
+          </div>
+
+          <div className="footer-column">
+            <h3>Get In Touch</h3>
+            <p>✉ Email: Contact us</p>
+            <p>⌖ India</p>
+            <p>For suggestions and support</p>
+          </div>
+
+          <div className="footer-column">
+            <h3>Follow Us</h3>
+
+            <div className="social-links">
+              <a href="#about" aria-label="YouTube">▶</a>
+              <a href="#about" aria-label="Facebook">f</a>
+              <a href="#about" aria-label="Instagram">◎</a>
+              <a href="#about" aria-label="X">𝕏</a>
+            </div>
+          </div>
         </div>
-        <div className="footer-links">
-          <a href="#home">Home</a>
-          <a href="#songs">Songs</a>
-          <a href="#learn">Learn</a>
-          <a href="#account">Login</a>
-        </div>
-        <div className="copyright">
+
+        <div className="copyright" id="account">
           © {new Date().getFullYear()} Songs of Zion – Keyboard Notes.
           All rights reserved.
         </div>
       </footer>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
